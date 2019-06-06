@@ -11,7 +11,7 @@ class UserModuleTest extends TestCase
     /**
      * @test
      */
-    function test_comprueba_url_usuarios()
+    function test_comprueba_url_user_list()
     {
         //Compruba que exista la URL 
        $this->get('/usuarios')
@@ -19,6 +19,17 @@ class UserModuleTest extends TestCase
        -> assertSee('Listado de usuarios')
        -> assertSee('Diego')
        -> assertSee('Laura');
+    }
+
+    /**
+     * @test
+     */
+    function test_comprueba_users_empty()
+    {
+        //Compruba que exista la URL 
+       $this->get('/usuarios?empty')
+       -> assertStatus(200)
+       -> assertSee('No hay usuarios registrados');
     }
 
     /**

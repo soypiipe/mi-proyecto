@@ -19,7 +19,9 @@ class UserController extends Controller
 	    		'Diego',
 	    		'Natalia',
 	    		'Laura',
-	    		'Sebastian'
+	    		'Sebastian',
+	    		'Carlos',
+	    		'Pedro'
 	    	];	
     	}
     	
@@ -32,11 +34,12 @@ class UserController extends Controller
     //Muestra detalle del usuario. Viene de la ruta que solicita el id
     public function show($id)
     {
-    	return "Mostrando detalle del usuario: {$id}";
+    	return view('users_detail', compact('id'));
     }
 
     public function create()
     {
-    	return 'Crear un usuario';
+    	return view('users_created')
+    	-> with('title', 'Crear usuario');
     }
 }
