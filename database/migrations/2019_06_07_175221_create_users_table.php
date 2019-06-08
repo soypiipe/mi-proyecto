@@ -11,16 +11,21 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
+
+    //metodo up se define lo que se va hacer con 
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+
+            $table->unsignedInteger('profession_id')->nullable();
+            $table->foreign('profession_id')->references('id')->on('professions');
+
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->rememberToken();//No representa ningun tipo de dato en la base de datos
+            $table->timestamps(); //Marcas de tiempo - Se crean dos columnas created_at y update_at
         });
     }
 

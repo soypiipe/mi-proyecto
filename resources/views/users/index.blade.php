@@ -1,12 +1,10 @@
 @extends('layout')
-
+ 
 @section('content')
-	<br>
-	<br>
+
 	<h1>{{ $title }}</h1>
 	@if(! empty($users))
 		<ul>
-			
 			@foreach ($users as $user)
 				<li>{{ $user }}</li>	
 			@endforeach
@@ -18,10 +16,14 @@
 	{{ date('Y-m-d',time()) }}
 @endsection
 
-@section('sidebar')
-	<h2>Barra lateral personalizada</h2>
-@endsection
 
+@section('sidebar') @php // Se pueden sobreescribir seeciones. Esta seccion ya esta definida en layout @endphp
+
+@php //Si no se quiere reescribir sino, solo modificar tanto arriba como abajo de la seccion se usa @parent @endphp
+	@parent
+	<h2>Barra lateral personalizada</h2>
+
+@endsection
 
 <!-- <!DOCTYPE html>
 <html lang="en">

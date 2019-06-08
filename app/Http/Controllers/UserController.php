@@ -26,7 +26,7 @@ class UserController extends Controller
     	}
     	
 
-    	return view('users')
+    	return view('users.index')
     	->with('users',$users)
     	->with('title', 'Listado de usuarios'); #pasado parametros a la vista con un solo with y array asociativo o un with por cada parametros
     }
@@ -34,12 +34,12 @@ class UserController extends Controller
     //Muestra detalle del usuario. Viene de la ruta que solicita el id
     public function show($id)
     {
-    	return view('users_detail', compact('id'));
+    	return view('users.show', compact('id'));
     }
 
     public function create()
     {
-    	return view('users_created')
+    	return view('users.created')
     	-> with('title', 'Crear usuario');
     }
 }
