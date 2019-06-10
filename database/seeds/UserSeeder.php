@@ -24,7 +24,21 @@ class UserSeeder extends Seeder
         	'name' => 'Diego Amado',
         	'email' => 'diego_amado_@outlook.com',
         	'password' => bcrypt('123456789'),
-        	'profession_id' => $professionId
+        	'professions_id' => $professionId
+        ]);
+
+        Users::create([
+            'name' => 'Natalia Arias',
+            'email' => 'yinata3@hotmail.com',
+            'password' => bcrypt('123'),
+            'professions_id' => $professionId
+        ]);
+
+        Users::create([
+            'name' => 'carlos',
+            'email' => 'carlos@outlook.com',
+            'password' => bcrypt('123456789'),
+            'professions_id' => null
         ]);
 
 

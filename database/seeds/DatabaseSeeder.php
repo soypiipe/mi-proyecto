@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Profession;
+use App\Models\Professions;
 
 class DatabaseSeeder extends Seeder
 {
