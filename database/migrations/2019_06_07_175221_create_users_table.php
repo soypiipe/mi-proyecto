@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();//No representa ningun tipo de dato en la base de datos
             $table->timestamps(); //Marcas de tiempo - Se crean dos columnas created_at y update_at
         });

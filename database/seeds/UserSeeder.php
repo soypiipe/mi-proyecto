@@ -20,27 +20,20 @@ class UserSeeder extends Seeder
     	->where('title', '=', 'Back-end developer')
     	->value('id'); //se pasa el nombre de la columna que se quiere elegir
 
-        Users::create([
+        factory(Users::class)->create([
         	'name' => 'Diego Amado',
         	'email' => 'diego_amado_@outlook.com',
         	'password' => bcrypt('123456789'),
         	'professions_id' => $professionId
         ]);
 
-        Users::create([
-            'name' => 'Natalia Arias',
-            'email' => 'yinata3@hotmail.com',
-            'password' => bcrypt('123'),
+        //Creando usuario con factory cambiando datos - Asignando profession
+        factory(Users::class)->create([
             'professions_id' => $professionId
         ]);
 
-        Users::create([
-            'name' => 'carlos',
-            'email' => 'carlos@outlook.com',
-            'password' => bcrypt('123456789'),
-            'professions_id' => null
-        ]);
-
+        //Creando usuario con factory
+        factory(Users::class)->create();
 
     }
 }

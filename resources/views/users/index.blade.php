@@ -3,15 +3,13 @@
 @section('content')
 
 	<h1>{{ $title }}</h1>
-	@if(! empty($users))
-		<ul>
-			@foreach ($users as $user)
-				<li>{{ $user }}</li>	
-			@endforeach
-		</ul>
-	@else
-		<p>No hay usuarios registrados</p>
-	@endif
+	<ul>
+		@forelse ($users as $user)
+			<li>{{ $user->name }}</li>
+		@empty
+			<p>No hay usuarios registrados</p>
+		@endforelse
+	</ul>
 
 	{{ date('Y-m-d',time()) }}
 @endsection
@@ -25,6 +23,9 @@
 
 @endsection
 
+
+
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,7 @@
 	
 	<ul>
 		@forelse ($users as $user) //Funciona como un foreach pero con condicional
-			<li>{{ $user }}</li>	
+			<li>{{ $user->name }}</li>	
 		@empty
 			<<li>No hay usuarios registrados </li>
 		@endforelse
