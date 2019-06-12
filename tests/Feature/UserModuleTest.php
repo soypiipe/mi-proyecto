@@ -10,8 +10,7 @@ use App\Models\Users;
 
 class UserModuleTest extends TestCase
 {
-
-    use RefreshDatabase; //Antes de ejecutar la prueba, ejecuta e comando de refrescar la base de datos
+use RefreshDatabase; //Antes de ejecutar la prueba, ejecuta e comando de refrescar la base de datos
     /**
      * @test
      */
@@ -61,4 +60,5 @@ class UserModuleTest extends TestCase
          -> assertStatus(200)
          -> assertSee("Crear un usuario");
     }
+
 }
