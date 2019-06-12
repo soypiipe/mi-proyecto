@@ -4,9 +4,12 @@
 
 @section('content')
 
-	<h1> Usuario #{{ $id }}</h1>
+	<h1> Usuario #{{ $user->id }}</h1>
 	
-	Mostrando detalle del usuario: {{ $id }}
+	<p>Nombre del usuario: {{ $user->name }}</p>
+    <p>Email del usuario: {{ $user->email }}</p>
+
+    <p> <a href="{{ url('/usuarios') }}">Regresar</a></p>
 	
 @endsection
 
