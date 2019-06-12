@@ -5,7 +5,10 @@
 	<h1>{{ $title }}</h1>
 	<ul>
 		@forelse ($users as $user)
-			<li>{{ $user->name }}</li>
+			<li>
+                {{ $user->name }}
+                <a href="{{ route('users.show',['id' => $user->id]) }}">Ver detalles</a>
+            </li>
 		@empty
 			<p>No hay usuarios registrados</p>
 		@endforelse
