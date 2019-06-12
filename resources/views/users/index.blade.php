@@ -3,18 +3,31 @@
 @section('content')
 
 	<h1>{{ $title }}</h1>
-	<ul>
-		@forelse ($users as $user)
-			<li>
-                {{ $user->name }}
-                <a href="{{ route('users.show',['id' => $user->id]) }}">Ver detalles</a>
-            </li>
-		@empty
-			<p>No hay usuarios registrados</p>
-		@endforelse
-	</ul>
-
-	{{ date('Y-m-d',time()) }}
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                @forelse ($users as $user)
+                    <tr>
+                        <th scope="row">{{ $user->id}}</th>
+                        <td>{{ $user->name}}</td>
+                        <td>{{ $user->email}}</td>
+                        <td><a href="{{ route('users.show',['id' => $user->id]) }}">Ver detalles</a></td>
+                    </tr>
+                @empty
+                    <p>No hay usuarios registrados</p>
+                @endforelse
+                
+            </tbody>
+        </table>
 @endsection
 
 
@@ -22,7 +35,6 @@
 
 @php //Si no se quiere reescribir sino, solo modificar tanto arriba como abajo de la seccion se usa @parent @endphp
 	@parent
-	<h2>Barra lateral personalizada</h2>
 
 @endsection
 

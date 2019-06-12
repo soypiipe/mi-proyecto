@@ -21,9 +21,9 @@ Route::get('/usuarios', 'UserController@index')->name('users');
 
 Route::get('/usuarios/nuevo', 'UserController@create')->name('users.create');
 
-Route::get('/usuarios/{id}', 'UserController@show')->name('users.show');
+Route::post("/usuarios", "UserController@store");
 
-
+Route::get('/usuarios/{user}', 'UserController@show')->where('user', '[0-9]+')->name('users.show');
 
 //Paso de mas de un parametro y nickname opcional usando ?
 Route::get('/saludo/{name}/{nickname?}', 'WelcomeUserController'); #No es necesario pasarle el nombre del metodo ya que el controlador solo tiene un metodo y se llama __invoke

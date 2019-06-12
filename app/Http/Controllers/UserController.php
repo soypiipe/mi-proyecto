@@ -38,10 +38,39 @@ class UserController extends Controller
     }
 
     //Muestra detalle del usuario. Viene de la ruta que solicita el id
-    public function show($id)
+    public function show(Users $user)
     {
-        $user = Users::find($id);
-    	return view('users.show', compact('user'));
+        return view('users.show', compact('user'));
+        
+    }
+    
+    public function store(){
+        
+        //Recibe los datos del formulario y valida que el nombre es obligatorio
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => ['required','email', 'unique:users,email'],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar
+            'password' => 'required'
+        ],[
+            'name.required' => 'El campo nombre es obligatorio',
+            'email.required' => 'El campo email es obligatorio',
+            'email.email' => 'Email invalido',
+            'email.unique' => 'Email duplicado'
+        ]);
+        
+//        if (empty($data['name'])){
+//            return redirect('usuarios/nuevo')->withErrors([
+//                'name' => 'El campo nombre es obligatorio'
+//            ]);
+//        }
+        
+        Users::create([
+           'name' => $data['name'],
+           'email' => $data['email'],
+           'password' => bcrypt($data['password']) 
+        ]);
+        
+        return redirect()->route('users');
     }
 
     public function create()

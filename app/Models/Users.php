@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 
-class Users extends Model
+class Users extends Model implements AuthenticatableContract
 {
-	protected $fillable = ['name', 'email', 'password'];
+    use Authenticatable;
+    
+    protected $fillable = ['name', 'email', 'password'];
 
     public function isAdmin()
     {

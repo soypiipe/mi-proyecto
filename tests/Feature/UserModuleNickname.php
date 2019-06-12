@@ -32,4 +32,4 @@ class UserModuleNickname extends TestCase
         -> assertSee('Hola Diego, no tiene apodo');
     }
 }
-}
+

@@ -8,9 +8,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use App\Models\Users;
 
+
 class UserModuleTest extends TestCase
 {
-use RefreshDatabase; //Antes de ejecutar la prueba, ejecuta e comando de refrescar la base de datos
+    use RefreshDatabase; //Trade que Antes de ejecutar la prueba, ejecuta e comando de refrescar la base de datos
     /**
      * @test
      */
@@ -46,9 +47,23 @@ use RefreshDatabase; //Antes de ejecutar la prueba, ejecuta e comando de refresc
      */
     function test_comprueba_usuario_detalle()
     {
-        $this->get('/usuarios/5')
+        $user = factory(Users::class)->create([
+            'name' => 'Diego Amado'
+        ]);
+        
+        $this->get("/usuarios/{$user->id}")
          -> assertStatus(200)
-         -> assertSee("Mostrando detalle del usuario: 5");
+         -> assertSee("Diego Amado");
+    }
+    
+    /**
+     * @test
+     */
+    function test_muestra_404_si_no_encuentra_usuario()
+    {
+       $this->get("usuarios/999")
+               ->assertStatus(404)
+               ->assertSee("Pagina no encontrada");
     }
 
     /**
@@ -58,7 +73,111 @@ use RefreshDatabase; //Antes de ejecutar la prueba, ejecuta e comando de refresc
     {
         $this->get('/usuarios/nuevo')
          -> assertStatus(200)
-         -> assertSee("Crear un usuario");
+         -> assertSee("Crear neuvo usuario");
     }
+    
+     /**
+     * @test
+     */
+    function test_crear_usuario_nuevo()
+    {
+        $this->post('/usuarios/', [
+           'name' => 'Diego Amado',
+           'email' => 'diego_amado_@outlook.com',
+           'password' => '123456'
+        ])->assertRedirect(route('users'));
+        
+        $this->assertCredentials([
+           'name' => 'Diego Amado',
+           'email' => 'diego_amado_@outlook.com',
+           'password' => '123456'
+        ]);
+    }
+    
+    function test_usuario_obligatorio()
+    {
+        $this->from('usuarios/nuevo')
+           ->post('/usuarios/', [
+           'name' => '',
+           'email' => 'diego_amado_@outlook.com',
+           'password' => '123456'
+        ])->assertRedirect('usuarios/nuevo')
+          ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
+        
+        $this->assertDatabaseMissing('users', 
+        [
+            'email' => 'diego_amado_@outlook.com',
+        ]);
+    }
+    
+    function test_email_obligatorio()
+    {
+        $this->from('usuarios/nuevo')
+           ->post('/usuarios/', [
+           'name' => 'Deigo Amado',
+           'email' => '',
+           'password' => '123456'
+        ])->assertRedirect('usuarios/nuevo')
+          ->assertSessionHasErrors(['email' => 'El campo email es obligatorio']);
+        
+        $this->assertDatabaseMissing('users', 
+        [
+            'name' => 'Diego Amado',
+        ]);
+    }
+    
+    function test_email_no_valido()
+    {
+        $this->from('usuarios/nuevo')
+           ->post('/usuarios/', [
+           'name' => 'Deigo Amado',
+           'email' => 'correo-no-valido',
+           'password' => '123456'
+        ])->assertRedirect('usuarios/nuevo')
+          ->assertSessionHasErrors(['email' => 'Email invalido']);
+        
+        $this->assertDatabaseMissing('users', 
+        [
+            'name' => 'Diego Amado',
+        ]);
+    }
+    
+    function test_email_unico()
+    {
+        factory(Users::class)->create([
+            'email' => 'diego_amado_@outlook.com'
+        ]);
+        
+        $this->from('usuarios/nuevo')
+           ->post('/usuarios/', [
+           'name' => 'Deigo Amado',
+           'email' => 'diego_amado_@outlook.com',
+           'password' => '123456'
+        ])->assertRedirect('usuarios/nuevo')
+          ->assertSessionHasErrors(['email' => 'Email duplicado']);
+        
+        $this->assertDatabaseMissing('users', 
+        [
+            'name' => 'Diego Amado',
+        ]);
+    }
+    
+    function test_password_obligatorio()
+    {
+        $this->from('usuarios/nuevo')
+           ->post('/usuarios/', [
+           'name' => 'Deigo Amado',
+           'email' => 'diego_amado_@outlook.com',
+           'password' => ''
+        ])->assertRedirect('usuarios/nuevo')
+          ->assertSessionHasErrors(['password']);
+        
+        $this->assertDatabaseMissing('users', 
+        [
+            'name' => 'Diego Amado',
+            'email' => 'diego_amado_@outlook.com'
+        ]);
+    }
+     
 
 }

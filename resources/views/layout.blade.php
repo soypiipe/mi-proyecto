@@ -10,7 +10,7 @@
       <title>@yield('title') - Styde.net</title>
 
       <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sticky-footer-navbar/">
-
+      <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
       <!-- Bootstrap core CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -30,9 +30,12 @@
             font-size: 3.5rem;
           }
         }
+        
+        
       </style>
       <!-- Custom styles for this template -->
       <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+      <link href="{ asset('css/floating-labels.css') }}" rel="stylesheet">
     </head>
     <body class="d-flex flex-column h-100">
       <header>
@@ -48,7 +51,7 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="{{ url('/usuarios') }}">Usuarios</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -64,21 +67,25 @@
 
   <!-- Begin page content -->
     <main role="main" class="flex-shrink-0">
-      <div class="row mt-3">
-        <div class="col-8">
-          <br>
-          <br>
-          @yield('content')
+        
+        <div>
+           @yield('error')
         </div>
-        <div class="col-4">
-          <br>
-          <br>
-          @section('sidebar')
-            <h2>Barra lateral</h2>
-          @show
-        </div>
-    </div>
+        <br>
+        <div class="col-sm-5 col-sm-offset-2 col-md-7 col-md-offset-0">
+          <div class="col-8">
+            <br>
+            <br>
+            @yield('content')
+          </div>
+          <div class="col-4">
+            <br>
+            <br>
+            @section('sidebar')
 
+            @show
+          </div>
+        </div>
    </main>
 
   <footer class="footer mt-auto py-3">
