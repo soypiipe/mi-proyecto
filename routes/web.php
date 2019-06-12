@@ -17,11 +17,11 @@ Route::get('/', function ()
 });
 
 //Ruta que define la entrada al modulo usuarios, pasndo por el controlador y el metodo index. 'UserController@index Controlador@metodo
-Route::get('/usuarios', 'UserController@index');
+Route::get('/usuarios', 'UserController@index')->name('users');
 
-Route::get('/usuarios/nuevo', 'UserController@create');
+Route::get('/usuarios/nuevo', 'UserController@create')->name('users.create');
 
-Route::get('/usuarios/{id}', 'UserController@show');
+Route::get('/usuarios/{id}', 'UserController@show')->name('users.show');
 
 
 
