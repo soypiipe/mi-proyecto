@@ -9,7 +9,7 @@ use App\Models\Users;
 class UserController extends Controller
 {
 	
-    //Hace referencia a la pagina principal del modulo de usuarios
+//Hace referencia a la pagina principal del modulo de usuarios
     public function index()
     {
     	// //Simulacion de BBDD usuarios para ejemplo
@@ -40,7 +40,8 @@ class UserController extends Controller
     //Muestra detalle del usuario. Viene de la ruta que solicita el id
     public function show($id)
     {
-    	return view('users.show', compact('id'));
+        $user = Users::find($id);
+    	return view('users.show', compact('user'));
     }
 
     public function create()
