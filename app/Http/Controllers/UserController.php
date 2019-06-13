@@ -50,12 +50,13 @@ class UserController extends Controller
         $data = request()->validate([
             'name' => 'required',
             'email' => ['required','email', 'unique:users,email'],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar
-            'password' => 'required'
+            'password' => ['required','Min:6']
         ],[
             'name.required' => 'El campo nombre es obligatorio',
             'email.required' => 'El campo email es obligatorio',
             'email.email' => 'Email invalido',
-            'email.unique' => 'Email duplicado'
+            'email.unique' => 'Email duplicado',
+            'password.min' => 'Minimo 6 caracteres'
         ]);
         
 //        if (empty($data['name'])){
@@ -77,5 +78,36 @@ class UserController extends Controller
     {
     	return view('users.created')
     	-> with('title', 'Crear usuario');
+    }
+    
+    public function edit(Users $user){
+        return view('users.edit', compact('user'));
+    }
+    
+    public function update(Users $user){
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => ['required','email', 'unique:users,email,'.$user->id],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar y enviando el id, descarta el email del usuario en cuestion  
+            'password' => ''
+        ],
+        [
+            'name.required' => 'El campo nombre es obligatorio',
+            'email.required' => 'El campo email es obligatorio',
+            'email.email' => 'Email invalido',
+            //'email.unique' => 'Email duplicado',
+            //'password.required' => 'Password requerido'
+        ]);
+        
+        if($data['password'] != null){
+            $data['password'] = bcrypt($data['password']); 
+        }else{
+            unset($data['password']); // Si viene vacio quita la variable del array asociativo
+        }
+        
+        
+        
+        $user->update($data);
+        
+        return redirect()->route('users.show', ['user' => $user]);
     }
 }

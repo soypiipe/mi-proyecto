@@ -46,6 +46,13 @@
         <div class="form-label-group">
             <input class="form-control" type="password" name='password' id="password" placeholder="Password">
             <!-- <label for="password">Password: </label> -->
+            @if($errors->has('password'))
+                <div class="alert alert-danger" role="alert">
+                   
+                    <p> {{ $errors->first('password') }} </p>
+                   
+                </div>
+            @endif
         </div>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit"> Crear Usuario</button>
