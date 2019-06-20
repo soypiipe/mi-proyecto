@@ -4,6 +4,8 @@
 
 	<h1>{{ $title }}</h1>
         
+        
+        <a class="btn btn-primary" href="{{ url('usuarios/nuevo') }}" role="button">Crear usuario</a>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -31,6 +33,8 @@
                 
             </tbody>
         </table>
+        {!! $users->render() !!}
+        
 @endsection
 
 

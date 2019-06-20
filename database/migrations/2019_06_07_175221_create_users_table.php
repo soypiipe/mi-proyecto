@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('professions_id')->nullable();
-            $table->foreign('professions_id')->references('id')->on('professions');
+            //$table->unsignedInteger('professions_id')->nullable();
+            //$table->foreign('professions_id')->references('id')->on('professions');
 
             $table->string('name');
             $table->string('email')->unique();
@@ -27,6 +27,13 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();//No representa ningun tipo de dato en la base de datos
             $table->timestamps(); //Marcas de tiempo - Se crean dos columnas created_at y update_at
+            $table->string('lastname');
+            $table->integer('document')->unique();
+            $table->date('birth_date');
+            $table->string('username')->unique();
+            $table->string('cel');
+            $table->string('address');
+            $table->enum('is_active',['1','0'])->default('1');
         });
     }
 

@@ -28,8 +28,8 @@ class UserController extends Controller
 	    // 	];	
     	// }
 
-        $users = Users::all(); //Usando eloquen trae todos los usuarios
-
+        //$users = Users::all(); //Usando eloquen trae todos los usuarios
+        $users = Users::orderBy('id','ASC')->paginate(5);
         $title = 'Listado de usuarios';
     	
     	return view('users.index', compact('title', 'users'));
@@ -49,8 +49,14 @@ class UserController extends Controller
         //Recibe los datos del formulario y valida que el nombre es obligatorio
         $data = request()->validate([
             'name' => 'required',
+            'lastname' => 'required',
             'email' => ['required','email', 'unique:users,email'],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar
-            'password' => ['required','Min:6']
+            'password' => ['required','Min:6'],
+            'document' => ['required', 'unique:users,document'],
+            'username' => ['required', 'unique:users,username'],
+            'birth_date' => '',
+            'cel' => '',
+            'address' => ''
         ],[
             'name.required' => 'El campo nombre es obligatorio',
             'email.required' => 'El campo email es obligatorio',
@@ -67,8 +73,14 @@ class UserController extends Controller
         
         Users::create([
            'name' => $data['name'],
+           'lastname' => $data['lastname'],
            'email' => $data['email'],
-           'password' => bcrypt($data['password']) 
+           'password' => bcrypt($data['password']),
+            'document' => $data['document'],
+            'username' => $data['username'],
+            'birth_date' => $data['birth_date'],
+            'cel' => $data['cel'],
+            'address' => $data['address']
         ]);
         
         return redirect()->route('users');
@@ -87,8 +99,14 @@ class UserController extends Controller
     public function update(Users $user){
         $data = request()->validate([
             'name' => 'required',
+            'lastname' => 'required',
             'email' => ['required','email', 'unique:users,email,'.$user->id],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar y enviando el id, descarta el email del usuario en cuestion  
-            'password' => ''
+            'password' => '',
+            'document' => ['required', 'unique:users,document,'.$user->id],
+            'username' => ['required', 'unique:users,username,'.$user->id],
+            'birth_date' => '',
+            'cel' => '',
+            'address' => ''
         ],
         [
             'name.required' => 'El campo nombre es obligatorio',
