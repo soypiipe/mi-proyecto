@@ -27,10 +27,13 @@ Route::put("/usuarios/{user}", 'UserController@update');
 
 Route::post("/usuarios", "UserController@store");
 
-Route::get('/usuarios/{user}', 'UserController@show')->where('user', '[0-9]+')->name('users.show');
+Route::get('/usuarios/{user}', 'UserController@show')
+        ->where('user', '[0-9]+')
+        ->name('users.show');
 
 //Paso de mas de un parametro y nickname opcional usando ?
 Route::get('/saludo/{name}/{nickname?}', 'WelcomeUserController'); #No es necesario pasarle el nombre del metodo ya que el controlador solo tiene un metodo y se llama __invoke
 
+Route::delete('usuarios/{user}', 'UserController@destroy')->name('users.destroy');
 
 

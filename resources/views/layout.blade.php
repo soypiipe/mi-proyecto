@@ -13,7 +13,7 @@
       <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
       <!-- Bootstrap core CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" />
 
       <style>
         .bd-placeholder-img {
@@ -73,7 +73,7 @@
         </div>
         <br>
         <div class="col-sm-5 col-sm-offset-2 col-md-7 col-md-offset-0">
-          <div class="col-8">
+          <div class="col-12">
             <br>
             <br>
             @yield('content')

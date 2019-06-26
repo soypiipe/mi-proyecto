@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         ]);
 
         //Creando usuario con factory
-        factory(Users::class)->create();
+        factory(Users::class, 50)->create();
 
     }
 }

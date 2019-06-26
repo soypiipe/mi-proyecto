@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use App\Models\Users;
 
 class UserController extends Controller
@@ -28,7 +29,7 @@ class UserController extends Controller
 	    // 	];	
     	// }
 
-        $users = Users::all(); //Usando eloquen trae todos los usuarios
+        $users = Users::orderBy('id', 'ASC')->paginate(5); //Usando eloquen trae todos los usuarios
 
         $title = 'Listado de usuarios';
     	
@@ -56,7 +57,8 @@ class UserController extends Controller
             'email.required' => 'El campo email es obligatorio',
             'email.email' => 'Email invalido',
             'email.unique' => 'Email duplicado',
-            'password.min' => 'Minimo 6 caracteres'
+            'password.min' => 'Minimo 6 caracteres',
+            'password.required' => 'El campo password es obligatorio'
         ]);
         
 //        if (empty($data['name'])){
@@ -87,7 +89,7 @@ class UserController extends Controller
     public function update(Users $user){
         $data = request()->validate([
             'name' => 'required',
-            'email' => ['required','email', 'unique:users,email,'.$user->id],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar y enviando el id, descarta el email del usuario en cuestion  
+            'email' => ['required','email', Rule::unique('users')->ignore($user->id)],//Validad s es unico: hay que psar el nombre de la tabla y campo a validar y enviando el id, descarta el email del usuario en cuestion 'email' => ['required','email', 'unique:users,email,'.$user->id]  
             'password' => ''
         ],
         [
@@ -109,5 +111,11 @@ class UserController extends Controller
         $user->update($data);
         
         return redirect()->route('users.show', ['user' => $user]);
+    }
+    
+    public function destroy(Users $user){
+        
+        $user->delete();
+        return redirect()->route('users');
     }
 }
