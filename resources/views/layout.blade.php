@@ -72,8 +72,8 @@
            @yield('error')
         </div>
         <br>
-        <div class="col-sm-5 col-sm-offset-2 col-md-7 ">
-          <div class="col-12">
+        <div class="col-sm-5 col-sm-offset-2 col-md-7 col-md-offset-0">
+          <div class="col-8">
             <br>
             <br>
             @yield('content')
@@ -85,7 +85,6 @@
 
             @show
           </div>
-        
         </div>
    </main>
 

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
     	//$profession = DB::select('SELECT id FROM profession WHERE title = ?',['Back-end developer']);
 
-    	/*$professionId =profesion::select('id','title')
+    	$professionId =profesion::select('id','title')
     	->where('title', '=', 'Back-end developer')
     	->value('id'); //se pasa el nombre de la columna que se quiere elegir
 
@@ -30,10 +30,10 @@ class UserSeeder extends Seeder
         //Creando usuario con factory cambiando datos - Asignando profession
         factory(Users::class)->create([
             'professions_id' => $professionId
-        ]); */
+        ]);
 
         //Creando usuario con factory
-        factory(Users::class, 50)->create();
+        factory(Users::class)->create();
 
     }
 }

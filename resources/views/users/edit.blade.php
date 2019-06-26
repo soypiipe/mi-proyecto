@@ -23,32 +23,9 @@
         
         <div class="form-label-group">
             <input class="form-control" type="text" name='name' id="name" placeholder="Nombre" value="{{ old('name', $user->name)  }}">
-            <input class="form-control" type="text" name='lastname' id="lastname" placeholder="Apellido" value="{{ old('lastname', $user->lastname) }}">
             <!-- <label for="name">Nombre: </label> -->
         </div>
         <br>
-        <div class="form-label-group">
-            <input class="form-control" type="text" name="document" id="document" placeholder="Documento" value="{{ old('document', $user->document) }}">
-        </div>
-        <br>
-        <div class="form-label-group">
-            <input class="form-control" type="text" name="username" id="username" placeholder="Usuario" value="{{ old('username', $user->username) }}">
-        </div>
-        <br>
-        <div class="form-label-group">
-            <label for="name">Fecha de nacimiento: </label>
-            <input class="form-control" type="date" name="birth_date" id="birth_date" placeholder="Fecha de nacimiento" value="{{ old('birth_date', $user->birth_date) }}">
-        </div>
-        <br>
-        <div class="form-label-group">
-            <input class="form-control" type="text" name="cel" id="cel" placeholder="Celular" value="{{ old('cel',$user->cel) }}">
-        </div>
-        <br>
-        <div class="form-label-group">
-            <input class="form-control" type="text" name="address" id="address" placeholder="Direccion" value="{{ old('address', $user->address) }}">
-        </div>
-        <br>
-        
         <div class="form-label-group">
             <input class="form-control" type="text" name='email' id="email" placeholder="Correo electronico" value="{{ old('email', $user->email) }}">
             <!-- <label for="email">Correo electronico: </label> -->
