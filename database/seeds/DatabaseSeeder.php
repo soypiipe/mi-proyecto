@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
     	DB::statement('SET FOREIGN_KEY_CHECKS = 0;'); //Quita validacion de llave foranea
 
     	foreach ($tables as $table) {
-    		DB::table($table)->truncate(); //Vacia la tabla
+            DB::table($table)->truncate(); //Vacia la tabla
     	}
 
     	DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
